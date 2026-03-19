@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIZHAL | Digital Armor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1 class="logo">NIZHAL<span>.</span></h1>
+        </header>
+
+        <main>
+            <div class="main-card">
+                <div class="drop-zone">
+                    <div id="laser" class="scan-line"></div>
+                    <input type="file" id="image-input" accept="image/*">
+                    <img id="preview-img" src="" alt="">
+                    <p id="placeholder">Tap to select image</p>
+                </div>
+                <div class="controls">
+                    <div class="toggle-row">
+                        <span>Protect with Nizhal</span>
+                        <label class="switch">
+                            <input type="checkbox" id="nizhal-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <button id="action-btn" class="btn-primary">Scan & Upload</button>
+                </div>
+            </div>
+
+            <h3 class="vault-title">My Protected Images</h3>
+            <div id="protected-gallery" class="gallery-grid">
+                </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
