@@ -18,6 +18,6 @@ def check_image(image_path):
         stored_hashes.append(new_hash)
         return "✅ SAFE"
 if __name__ == "__main__": 
- print(check_image("C:\original_photo.jpeg")) 
- print(check_image("C:\screenshot_of_photo.jpeg")) 
- print(check_image("C:\original_photo.jpeg")) 
+ print(check_image(r"C:\original_photo.jpeg")) 
+ print(check_image(r"C:\screenshot_of_photo.jpeg")) 
+ print(check_image(r"C:\original_photo.jpeg")) 
