@@ -1,7 +1,14 @@
 from PIL import Image
+from stegano import lsb
 import imagehash
 # store hashes
 stored_hashes = []
+
+def apply_invisible_shield(image_path, user_id):
+    """Embeds the User ID into the pixels."""
+    protected_img = lsb.hide(image_path, user_id)
+    protected_img.save(image_path) # Overwrite with the shielded version
+    return True
 def generate_hash(image_path):
     image = Image.open(image_path)
     return imagehash.phash(image)

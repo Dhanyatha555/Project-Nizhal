@@ -19,12 +19,13 @@ imageInput.onchange = () => {
 
 // 2. Handle Scan and Upload
 actionBtn.onclick = async () => {
-    if (!imageInput.files[0]) return;
+    const file = imageInput.files[0];
+    if (!file) return;
 
     // Start Scan Animation
-    laser.style.display = "block";
+   laser.style.display = "block";
     laser.style.animation = "scanning 2s linear infinite";
-    actionBtn.innerText = "Verifying Identity...";
+    actionBtn.innerText = "Nizhal Scanning...";
     actionBtn.disabled = true;
 
     // Simulate 2 second delay for "Verification"
@@ -40,6 +41,44 @@ actionBtn.onclick = async () => {
     const isProtected = nizhalToggle.checked;
 
     addToVault(previewImg.src, isProtected);
+    // --- NEW: THE INTEGRATION BRIDGE ---
+    const formData = new FormData();
+    formData.append('image', file); // Sending the file to Flask
+
+    try {
+        // We call the Flask server (running on localhost port 5000)
+        const response = await fetch('http://127.0.0.1:5000/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        // Stop Animation
+        laser.style.display = "none";
+        actionBtn.disabled = false;
+
+        // Check if the Backend blocked it
+        if (result.status && result.status.includes("🚫 BLOCKED")) {
+            actionBtn.innerText = "BLOCKING UNAUTHORIZED UPLOAD";
+            actionBtn.style.background = "#ff5a5f";
+            alert("Nizhal Alert: " + result.status);
+        } else {
+            // Success Path
+            actionBtn.innerText = "Identity Verified & Uploaded";
+            actionBtn.style.background = "#28a745";
+            
+            const isProtected = nizhalToggle.checked;
+            addToVault(previewImg.src, isProtected);
+        }
+
+    } catch (error) {
+        console.error("Connection Error:", error);
+        laser.style.display = "none";
+        actionBtn.disabled = false;
+        actionBtn.innerText = "Server Offline (Check Flask)";
+        alert("Could not connect to the Backend. Is app.py running?");
+    }
 };
 
 // 3. Add to Vault function
