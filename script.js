@@ -22,9 +22,9 @@ actionBtn.onclick = async () => {
     const file = imageInput.files[0];
     if (!file) return;
     // Start Scan Animation
-    laser.style.display = "block";
+   laser.style.display = "block";
     laser.style.animation = "scanning 2s linear infinite";
-    actionBtn.innerText = "Verifying Identity...";
+    actionBtn.innerText = "Nizhal Scanning...";
     actionBtn.disabled = true;
 
     // Simulate 2 second delay for "Verification"
